@@ -1,0 +1,40 @@
+
+<div id="product_list">
+<h1>Listing movies</h1>
+
+<table>
+
+<% @movies.each do |movie| %>
+  <tr class="<%= cycle( 'list_line_odd', 'list_line_even' ) %>">
+    <td>
+        <%= image_tag( movie.image, :class => 'list_image' ) %>
+    </td>
+    <td>
+        <dl>
+          <dt><h2><%= movie.title %></h2></dt>
+          <dd>
+              <%= truncate( strip_tags( movie.overview ), :length => 80 ) %>
+              <br />
+              Duration: <%= movie.duration %>
+              Rating: <%= movie.rating %>
+              <br />
+              Director: <%= movie.director %> Actors:<%= movie.actors %>
+              <br />
+              <strong>Status</strong> <%= movie.available %>
+          </dd>
+        </dl>
+    </td>
+    
+    <td>
+        <%= link_to 'Show', movie %>
+        <%= link_to 'Edit', edit_movie_path(movie) %>
+        <%= link_to 'Destroy', movie,  :method => :delete %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Movie', new_movie_path %>
+</div>

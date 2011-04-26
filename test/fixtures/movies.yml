@@ -1,0 +1,19 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: MyString
+  rating: 1
+  duration: 1
+  director: MyString
+  actors: MyString
+  overview: MyText
+  available: false
+
+two:
+  title: MyString
+  rating: 1
+  duration: 1
+  director: MyString
+  actors: MyString
+  overview: MyText
+  available: false
