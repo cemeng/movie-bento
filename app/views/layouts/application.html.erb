@@ -1,14 +1,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>VideoDepot</title>
-  <%= stylesheet_link_tag :all %>
+  <title>Video Depot</title>
+  <%= stylesheet_link_tag "scaffold" %>
+  <%= stylesheet_link_tag "styles", :media => "all" %>
+
   <%= javascript_include_tag :defaults %>
   <%= csrf_meta_tag %>
 </head>
-<body>
+<body id="store">
+  <div id="banner">
+    <%= image_tag( "logo.png") %>
+    <%= @page_title || "Video Depot" %>
+  </div>
 
-<%= yield %>
+  <div id="columns">
+    <div id="side">
+      <ul>
+        <li><a href="">Home</a></li>
+        <li><a href="">Questions</a></li>
+        <li><a href="">News</a></li>
+        <li><a href="">Contact</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div id="main">
+    <%= yield %>
+  </div>
 
 </body>
 </html>

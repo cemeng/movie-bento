@@ -1,2 +1,14 @@
-<h1>Store#index</h1>
-<p>Find me in app/views/store/index.html.erb</p>
+<% if notice %>
+<p id="notice">
+  <%= notice %>
+</p>
+<% end %>
+
+<h1>Rails Video Depot</h1>
+
+<% @movies.each do |movie| %>
+<div class="entry">
+  <%= image_tag( movie.image ) %>
+  <h3><%= movie.title %></h3>
+</div>
+<% end  %>

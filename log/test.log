@@ -145,3 +145,204 @@ Completed 200 OK in 14ms (Views: 10.7ms | ActiveRecord: 2.1ms)
   [1m[35mAREL (0.7ms)[0m  UPDATE "movies" SET "title" = 'Test', "overview" = 'Test', "image" = 'Test.png', "updated_at" = '2011-04-21 13:08:56.084857' WHERE "movies"."id" = 980190962
 Redirected to http://test.host/movies/980190962
 Completed 302 Found in 12ms
+  [1m[36mSQL (0.1ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT COUNT(*) FROM "movies"[0m
+  Processing by MoviesController#create as HTML
+  Parameters: {"movie"=>{"title"=>"Test", "overview"=>"Test", "image"=>"Test.png"}}
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies"."id" FROM "movies" WHERE ("movies"."title" = 'Test') LIMIT 1
+  [1m[36mAREL (1.3ms)[0m  [1mINSERT INTO "movies" ("title", "rating", "duration", "director", "actors", "overview", "available", "created_at", "updated_at", "code", "image") VALUES ('Test', NULL, NULL, NULL, NULL, 'Test', NULL, '2011-04-26 11:56:22.592851', '2011-04-26 11:56:22.592851', NULL, 'Test.png')[0m
+Redirected to http://test.host/movies/980190963
+Completed 302 Found in 222ms
+  [1m[35mSQL (0.1ms)[0m  SELECT COUNT(*) FROM "movies"
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  SELECT COUNT(*) FROM "movies"
+  Processing by MoviesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  [1m[35mAREL (0.1ms)[0m  DELETE FROM "movies" WHERE "movies"."id" = 980190962
+Redirected to http://test.host/movies
+Completed 302 Found in 2ms
+  [1m[36mSQL (0.0ms)[0m  [1mSELECT COUNT(*) FROM "movies"[0m
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+Rendered movies/_form.html.erb (18.5ms)
+Completed 200 OK in 25ms (Views: 24.0ms | ActiveRecord: 3.8ms)
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Completed   in 21ms
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#new as HTML
+Rendered movies/_form.html.erb (3.2ms)
+Completed 200 OK in 6ms (Views: 5.6ms | ActiveRecord: 0.2ms)
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  Processing by MoviesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+Completed 200 OK in 16ms (Views: 15.4ms | ActiveRecord: 0.6ms)
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  Processing by MoviesController#update as HTML
+  Parameters: {"movie"=>{"title"=>"Test", "overview"=>"Test", "image"=>"Test.png"}, "id"=>"980190962"}
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  [1m[36mMovie Load (0.0ms)[0m  [1mSELECT "movies"."id" FROM "movies" WHERE ("movies"."title" = 'Test') AND ("movies".id <> 980190962) LIMIT 1[0m
+  [1m[35mAREL (0.1ms)[0m  UPDATE "movies" SET "title" = 'Test', "overview" = 'Test', "image" = 'Test.png', "updated_at" = '2011-04-26 11:56:22.759396' WHERE "movies"."id" = 980190962
+Redirected to http://test.host/movies/980190962
+Completed 302 Found in 3ms
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (0.5ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Completed   in 3ms
+  [1m[36mSQL (0.3ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT COUNT(*) FROM "movies"[0m
+  Processing by MoviesController#create as HTML
+  Parameters: {"movie"=>{"title"=>"Test", "overview"=>"Test", "image"=>"Test.png"}}
+  [1m[35mMovie Load (0.1ms)[0m  SELECT "movies"."id" FROM "movies" WHERE ("movies"."title" = 'Test') LIMIT 1
+  [1m[36mAREL (1.9ms)[0m  [1mINSERT INTO "movies" ("title", "rating", "duration", "director", "actors", "overview", "available", "created_at", "updated_at", "code", "image") VALUES ('Test', NULL, NULL, NULL, NULL, 'Test', NULL, '2011-04-26 11:58:41.359272', '2011-04-26 11:58:41.359272', NULL, 'Test.png')[0m
+Redirected to http://test.host/movies/980190963
+Completed 302 Found in 49ms
+  [1m[35mSQL (0.1ms)[0m  SELECT COUNT(*) FROM "movies"
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  SELECT COUNT(*) FROM "movies"
+  Processing by MoviesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  [1m[35mAREL (0.1ms)[0m  DELETE FROM "movies" WHERE "movies"."id" = 980190962
+Redirected to http://test.host/movies
+Completed 302 Found in 2ms
+  [1m[36mSQL (0.0ms)[0m  [1mSELECT COUNT(*) FROM "movies"[0m
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+Rendered movies/_form.html.erb (5.6ms)
+Completed 200 OK in 12ms (Views: 10.7ms | ActiveRecord: 4.3ms)
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Completed   in 13ms
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#new as HTML
+Rendered movies/_form.html.erb (3.2ms)
+Completed 200 OK in 6ms (Views: 5.4ms | ActiveRecord: 0.2ms)
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  Processing by MoviesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+Completed 200 OK in 4ms (Views: 2.6ms | ActiveRecord: 0.5ms)
+  [1m[36mMovie Load (0.8ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  Processing by MoviesController#update as HTML
+  Parameters: {"movie"=>{"title"=>"Test", "overview"=>"Test", "image"=>"Test.png"}, "id"=>"980190962"}
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  [1m[36mMovie Load (0.0ms)[0m  [1mSELECT "movies"."id" FROM "movies" WHERE ("movies"."title" = 'Test') AND ("movies".id <> 980190962) LIMIT 1[0m
+  [1m[35mAREL (0.1ms)[0m  UPDATE "movies" SET "title" = 'Test', "overview" = 'Test', "image" = 'Test.png', "updated_at" = '2011-04-26 11:58:41.451778' WHERE "movies"."id" = 980190962
+Redirected to http://test.host/movies/980190962
+Completed 302 Found in 4ms
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Completed   in 3ms
+  [1m[36mSQL (0.1ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mMovie Load (0.6ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT COUNT(*) FROM "movies"[0m
+  Processing by MoviesController#create as HTML
+  Parameters: {"movie"=>{"title"=>"Test", "overview"=>"Test", "image"=>"Test.png"}}
+  [1m[35mMovie Load (0.1ms)[0m  SELECT "movies"."id" FROM "movies" WHERE ("movies"."title" = 'Test') LIMIT 1
+  [1m[36mAREL (1.6ms)[0m  [1mINSERT INTO "movies" ("title", "rating", "duration", "director", "actors", "overview", "available", "created_at", "updated_at", "code", "image") VALUES ('Test', NULL, NULL, NULL, NULL, 'Test', NULL, '2011-04-26 12:09:48.708881', '2011-04-26 12:09:48.708881', NULL, 'Test.png')[0m
+Redirected to http://test.host/movies/980190963
+Completed 302 Found in 48ms
+  [1m[35mSQL (0.1ms)[0m  SELECT COUNT(*) FROM "movies"
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  SELECT COUNT(*) FROM "movies"
+  Processing by MoviesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  [1m[35mAREL (0.1ms)[0m  DELETE FROM "movies" WHERE "movies"."id" = 980190962
+Redirected to http://test.host/movies
+Completed 302 Found in 2ms
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT COUNT(*) FROM "movies"[0m
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+Rendered movies/_form.html.erb (5.8ms)
+Completed 200 OK in 12ms (Views: 10.7ms | ActiveRecord: 4.5ms)
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Completed   in 15ms
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#new as HTML
+Rendered movies/_form.html.erb (3.0ms)
+Completed 200 OK in 6ms (Views: 5.3ms | ActiveRecord: 0.2ms)
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  Processing by MoviesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+Completed 200 OK in 4ms (Views: 2.7ms | ActiveRecord: 0.5ms)
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  Processing by MoviesController#update as HTML
+  Parameters: {"movie"=>{"title"=>"Test", "overview"=>"Test", "image"=>"Test.png"}, "id"=>"980190962"}
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  [1m[36mMovie Load (0.1ms)[0m  [1mSELECT "movies"."id" FROM "movies" WHERE ("movies"."title" = 'Test') AND ("movies".id <> 980190962) LIMIT 1[0m
+  [1m[35mAREL (0.2ms)[0m  UPDATE "movies" SET "title" = 'Test', "overview" = 'Test', "image" = 'Test.png', "updated_at" = '2011-04-26 12:09:48.797705' WHERE "movies"."id" = 980190962
+Redirected to http://test.host/movies/980190962
+Completed 302 Found in 3ms
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (0.4ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Completed   in 3ms
+  [1m[36mSQL (0.1ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT COUNT(*) FROM "movies"[0m
+  Processing by MoviesController#create as HTML
+  Parameters: {"movie"=>{"title"=>"Test", "overview"=>"Test", "image"=>"Test.png"}}
+  [1m[35mMovie Load (0.1ms)[0m  SELECT "movies"."id" FROM "movies" WHERE ("movies"."title" = 'Test') LIMIT 1
+  [1m[36mAREL (0.2ms)[0m  [1mINSERT INTO "movies" ("title", "rating", "duration", "director", "actors", "overview", "available", "created_at", "updated_at", "code", "image") VALUES ('Test', NULL, NULL, NULL, NULL, 'Test', NULL, '2011-04-26 12:10:52.487050', '2011-04-26 12:10:52.487050', NULL, 'Test.png')[0m
+Redirected to http://test.host/movies/980190963
+Completed 302 Found in 384ms
+  [1m[35mSQL (1.6ms)[0m  SELECT COUNT(*) FROM "movies"
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  [1m[35mSQL (0.0ms)[0m  SELECT COUNT(*) FROM "movies"
+  Processing by MoviesController#destroy as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mMovie Load (0.3ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  [1m[35mAREL (0.2ms)[0m  DELETE FROM "movies" WHERE "movies"."id" = 980190962
+Redirected to http://test.host/movies
+Completed 302 Found in 2ms
+  [1m[36mSQL (0.0ms)[0m  [1mSELECT COUNT(*) FROM "movies"[0m
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#edit as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+Rendered movies/_form.html.erb (5.8ms)
+Completed 200 OK in 12ms (Views: 11.1ms | ActiveRecord: 4.0ms)
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  Processing by MoviesController#new as HTML
+Rendered movies/_form.html.erb (3.1ms)
+Completed 200 OK in 6ms (Views: 5.5ms | ActiveRecord: 0.2ms)
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  Processing by MoviesController#show as HTML
+  Parameters: {"id"=>"980190962"}
+  [1m[35mMovie Load (0.3ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+Completed 200 OK in 4ms (Views: 2.7ms | ActiveRecord: 0.5ms)
+  [1m[36mMovie Load (0.2ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1[0m
+  Processing by MoviesController#update as HTML
+  Parameters: {"movie"=>{"title"=>"Test", "overview"=>"Test", "image"=>"Test.png"}, "id"=>"980190962"}
+  [1m[35mMovie Load (0.2ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 980190962 ORDER BY title LIMIT 1
+  [1m[36mMovie Load (0.0ms)[0m  [1mSELECT "movies"."id" FROM "movies" WHERE ("movies"."title" = 'Test') AND ("movies".id <> 980190962) LIMIT 1[0m
+  [1m[35mAREL (0.1ms)[0m  UPDATE "movies" SET "title" = 'Test', "overview" = 'Test', "image" = 'Test.png', "updated_at" = '2011-04-26 12:10:52.666715' WHERE "movies"."id" = 980190962
+Redirected to http://test.host/movies/980190962
+Completed 302 Found in 3ms
