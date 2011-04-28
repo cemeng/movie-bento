@@ -40,11 +40,15 @@ class CartItemsController < ApplicationController
   # POST /cart_items
   # POST /cart_items.xml
   def create
-    @cart_item = CartItem.new(params[:cart_item])
-
+    @cart = current_cart
+    movie = Movie.find( params[:movie_id] )
+    @cart_item = @cart.add_movie( movie.id )
+	
+	resetCounter
+	
     respond_to do |format|
       if @cart_item.save
-        format.html { redirect_to(@cart_item, :notice => 'Cart item was successfully created.') }
+        format.html { redirect_to(@cart_item.cart, :notice => 'Cart item was successfully created.') }
         format.xml  { render :xml => @cart_item, :status => :created, :location => @cart_item }
       else
         format.html { render :action => "new" }
@@ -80,4 +84,9 @@ class CartItemsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  private 
+	def resetCounter
+		session[:counter] = 0
+	end		
 end

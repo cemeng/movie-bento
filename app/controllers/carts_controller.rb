@@ -80,4 +80,20 @@ class CartsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+	
+  # GET /carts/clear/1
+  def clear
+    @cart = Cart.find(params[:id])
+    
+
+    respond_to do |format|
+      if @cart.update_attributes(params[:cart])
+        format.html { redirect_to(@cart, :notice => 'Cart was successfully cleared.') }
+        format.xml  { head :ok }
+      else
+        format.html { render :action => "edit" }
+        format.xml  { render :xml => @cart.errors, :status => :unprocessable_entity }
+      end
+    end
+  end  
 end

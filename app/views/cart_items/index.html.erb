@@ -2,7 +2,7 @@
 
 <table>
   <tr>
-    <th>Video</th>
+    <th>Movie</th>
     <th>Cart</th>
     <th></th>
     <th></th>
@@ -11,7 +11,7 @@
 
 <% @cart_items.each do |cart_item| %>
   <tr>
-    <td><%= cart_item.video_id %></td>
+    <td><%= cart_item.movie_id %></td>
     <td><%= cart_item.cart_id %></td>
     <td><%= link_to 'Show', cart_item %></td>
     <td><%= link_to 'Edit', edit_cart_item_path(cart_item) %></td>

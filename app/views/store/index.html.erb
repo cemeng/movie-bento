@@ -8,7 +8,17 @@
 
 <% @movies.each do |movie| %>
 <div class="entry">
-  <%= image_tag( movie.image ) %>
+  <%= link_to image_tag( movie.image ), cart_items_path(:movie_id => movie.id ), :method => :post %>
   <h3><%= movie.title %></h3>
+  <div>
+    <%= sanitize( movie.overview ) %>
+  </div>
+  <div class="price_line">
+    <%= button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) %>
+  </div>
 </div>
 <% end  %>
+
+<% if @counter > 5 %>
+	<em>You have accessed this page <%= pluralize( @counter, 'time' ) %></em>
+<% end %>

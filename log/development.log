@@ -790,3 +790,1158 @@ Migrating to RenameColumnVideoToMovieInCartItem (20110426122718)
   [1m[35mSQL (0.0ms)[0m  PRAGMA index_list("cart_items")
   [1m[36mSQL (0.0ms)[0m  [1mPRAGMA index_list("carts")[0m
   [1m[35mSQL (0.0ms)[0m  PRAGMA index_list("movies")
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:02:50 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (25.1ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Rendered store/index.html.erb within layouts/application (88.3ms)
+Completed 200 OK in 277ms (Views: 132.6ms | ActiveRecord: 25.1ms)
+
+
+Started POST "/cart_items?movie_id=2" for 127.0.0.1 at 2011-04-28 22:03:03 +1000
+  Processing by CartItemsController#create as HTML
+  Parameters: {"authenticity_token"=>"ESXPHdPLeNVkyP9MXzq7rnqcsknq5Y6VugMAk7IRMeA=", "movie_id"=>"2"}
+  [1m[35mSQL (0.5ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mCart Load (0.1ms)[0m  [1mSELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1[0m
+  [1m[35mMovie Load (0.6ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mAREL (12.5ms)[0m  [1mINSERT INTO "cart_items" ("cart_id", "created_at", "updated_at", "movie_id") VALUES (1, '2011-04-28 12:03:03.646548', '2011-04-28 12:03:03.646548', 2)[0m
+  [1m[35mCart Load (0.2ms)[0m  SELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1
+Redirected to http://0.0.0.0:3000/carts/1
+Completed 302 Found in 173ms
+
+
+Started GET "/carts/1" for 127.0.0.1 at 2011-04-28 22:03:03 +1000
+  Processing by CartsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCart Load (0.1ms)[0m  [1mSELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1[0m
+  [1m[35mCartItem Load (0.2ms)[0m  SELECT "cart_items".* FROM "cart_items" WHERE ("cart_items".cart_id = 1)
+  [1m[36mMovie Load (0.8ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mMovie Load (0.7ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 3 ORDER BY title LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+Rendered carts/show.html.erb within layouts/application (67.2ms)
+Completed 200 OK in 89ms (Views: 76.6ms | ActiveRecord: 1.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:05:58 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (1.2ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+ERROR: compiling _app_views_store_index_html_erb___2239424401792329768_22862980__405670652931685956 RAISED /home/felixt/prj/video-depot/app/views/store/index.html.erb:11: syntax error, unexpected ',', expecting tASSOC
+...e.id, image_tag( movie.image ), :method => :post ));@output_...
+...                               ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:11: syntax error, unexpected ')', expecting keyword_end
+...ie.image ), :method => :post ));@output_buffer.safe_concat('
+...                               ^
+Function body:           def _app_views_store_index_html_erb___2239424401792329768_22862980__405670652931685956(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "store/index";_old_output_buffer = @output_buffer;;@output_buffer = ActionView::OutputBuffer.new; if notice 
+@output_buffer.safe_concat('<p id="notice">
+  ');@output_buffer.append= ( notice );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</p>
+'); end 
+@output_buffer.safe_concat('
+<h1>Rails Video Depot</h1>
+
+');@output_buffer.append_if_string=  @movies.each do |movie| 
+@output_buffer.safe_concat('<div class="entry">
+  ');@output_buffer.append= ( link_to( cart_items_path(:movie_id => movie.id, image_tag( movie.image ), :method => :post ));@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  <h3>');@output_buffer.append= ( movie.title );@output_buffer.safe_concat('</h3>
+  <div>
+    ');@output_buffer.append= ( sanitize( movie.overview ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+  <div class="price_line">
+    ');@output_buffer.append= ( button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+</div>
+'); end  
+@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `module_eval'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `compile'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:134:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:54:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:127:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:59:in `block in _render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:56:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:26:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:93:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:17:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block (2 levels) in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `block in ms'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:150:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:18:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:435:in `_run__4169810168761154003__process_action__3119995550180263816__callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:409:in `_run_process_action_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:93:in `run_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:30:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:119:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:41:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:138:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:178:in `block in action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:148:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:93:in `block in recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:68:in `optimized_each'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:92:in `recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:139:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:492:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/head.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/methodoverride.rb:24:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:32:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:12:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:31:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:46:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/sendfile.rb:107:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/logger.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/runtime.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/static.rb:30:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:168:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:77:in `method_missing'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/log_tailer.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/content_length.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/handler/webrick.rb:52:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+Rendered store/index.html.erb within layouts/application (27.1ms)
+Completed   in 41ms
+
+ActionView::Template::Error (/home/felixt/prj/video-depot/app/views/store/index.html.erb:11: syntax error, unexpected ',', expecting tASSOC
+...e.id, image_tag( movie.image ), :method => :post ));@output_...
+...                               ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:11: syntax error, unexpected ')', expecting keyword_end
+...ie.image ), :method => :post ));@output_buffer.safe_concat('
+...                               ^):
+    8: 
+    9: <% @movies.each do |movie| %>
+    10: <div class="entry">
+    11:   <%= link_to( cart_items_path(:movie_id => movie.id, image_tag( movie.image ), :method => :post )%>
+    12:   <h3><%= movie.title %></h3>
+    13:   <div>
+    14:     <%= sanitize( movie.overview ) %>
+  
+
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (6.4ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (11.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:07:08 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.3ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+ERROR: compiling _app_views_store_index_html_erb___2239424401792329768_15961780__405670652931685956 RAISED /home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+Function body:           def _app_views_store_index_html_erb___2239424401792329768_15961780__405670652931685956(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "store/index";_old_output_buffer = @output_buffer;;@output_buffer = ActionView::OutputBuffer.new; if notice 
+@output_buffer.safe_concat('<p id="notice">
+  ');@output_buffer.append= ( notice );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</p>
+'); end 
+@output_buffer.safe_concat('
+<h1>Rails Video Depot</h1>
+
+');@output_buffer.append_if_string=  @movies.each do |movie| 
+@output_buffer.safe_concat('<div class="entry">
+  ');@output_buffer.append= ( link_to image_tag( movie.image ), cart_items_path(:movie_id => movie.id, :method => :post );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  <h3>');@output_buffer.append= ( movie.title );@output_buffer.safe_concat('</h3>
+  <div>
+    ');@output_buffer.append= ( sanitize( movie.overview ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+  <div class="price_line">
+    ');@output_buffer.append= ( button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+</div>
+'); end  
+@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `module_eval'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `compile'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:134:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:54:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:127:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:59:in `block in _render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:56:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:26:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:93:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:17:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block (2 levels) in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `block in ms'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:150:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:18:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:435:in `_run__4169810168761154003__process_action__3119995550180263816__callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:409:in `_run_process_action_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:93:in `run_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:30:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:119:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:41:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:138:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:178:in `block in action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:148:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:93:in `block in recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:68:in `optimized_each'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:92:in `recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:139:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:492:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/head.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/methodoverride.rb:24:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:32:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:12:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:31:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:46:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/sendfile.rb:107:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/logger.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/runtime.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/static.rb:30:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:168:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:77:in `method_missing'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/log_tailer.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/content_length.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/handler/webrick.rb:52:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+Rendered store/index.html.erb within layouts/application (0.9ms)
+Completed   in 13ms
+
+ActionView::Template::Error (/home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'):
+    17:     <%= button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) %>
+    18:   </div>
+    19: </div>
+    20: <% end  %>
+  
+
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.1ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (31.5ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (35.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:07:25 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (0.9ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+ERROR: compiling _app_views_store_index_html_erb___2239424401792329768_21704440__405670652931685956 RAISED /home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+Function body:           def _app_views_store_index_html_erb___2239424401792329768_21704440__405670652931685956(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "store/index";_old_output_buffer = @output_buffer;;@output_buffer = ActionView::OutputBuffer.new; if notice 
+@output_buffer.safe_concat('<p id="notice">
+  ');@output_buffer.append= ( notice );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</p>
+'); end 
+@output_buffer.safe_concat('
+<h1>Rails Video Depot</h1>
+
+');@output_buffer.append_if_string=  @movies.each do |movie| 
+@output_buffer.safe_concat('<div class="entry">
+  ');@output_buffer.append= ( link_to image_tag( movie.image ), cart_items_path(:movie_id => movie.id );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  <h3>');@output_buffer.append= ( movie.title );@output_buffer.safe_concat('</h3>
+  <div>
+    ');@output_buffer.append= ( sanitize( movie.overview ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+  <div class="price_line">
+    ');@output_buffer.append= ( button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+</div>
+'); end  
+@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `module_eval'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `compile'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:134:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:54:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:127:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:59:in `block in _render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:56:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:26:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:93:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:17:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block (2 levels) in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `block in ms'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:150:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:18:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:435:in `_run__4169810168761154003__process_action__3119995550180263816__callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:409:in `_run_process_action_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:93:in `run_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:30:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:119:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:41:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:138:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:178:in `block in action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:148:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:93:in `block in recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:68:in `optimized_each'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:92:in `recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:139:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:492:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/head.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/methodoverride.rb:24:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:32:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:12:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:31:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:46:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/sendfile.rb:107:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/logger.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/runtime.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/static.rb:30:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:168:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:77:in `method_missing'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/log_tailer.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/content_length.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/handler/webrick.rb:52:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+Rendered store/index.html.erb within layouts/application (0.7ms)
+Completed   in 11ms
+
+ActionView::Template::Error (/home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'):
+    17:     <%= button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) %>
+    18:   </div>
+    19: </div>
+    20: <% end  %>
+  
+
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.4ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.2ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (9.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:07:39 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (0.9ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+ERROR: compiling _app_views_store_index_html_erb___2239424401792329768_24628900__405670652931685956 RAISED /home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+Function body:           def _app_views_store_index_html_erb___2239424401792329768_24628900__405670652931685956(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "store/index";_old_output_buffer = @output_buffer;;@output_buffer = ActionView::OutputBuffer.new; if notice 
+@output_buffer.safe_concat('<p id="notice">
+  ');@output_buffer.append= ( notice );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</p>
+'); end 
+@output_buffer.safe_concat('
+<h1>Rails Video Depot</h1>
+
+');@output_buffer.append_if_string=  @movies.each do |movie| 
+@output_buffer.safe_concat('<div class="entry">
+  ');@output_buffer.append= ( link_to "felx", cart_items_path(:movie_id => movie.id );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  <h3>');@output_buffer.append= ( movie.title );@output_buffer.safe_concat('</h3>
+  <div>
+    ');@output_buffer.append= ( sanitize( movie.overview ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+  <div class="price_line">
+    ');@output_buffer.append= ( button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+</div>
+'); end  
+@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `module_eval'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `compile'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:134:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:54:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:127:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:59:in `block in _render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:56:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:26:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:93:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:17:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block (2 levels) in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `block in ms'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:150:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:18:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:435:in `_run__4169810168761154003__process_action__3119995550180263816__callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:409:in `_run_process_action_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:93:in `run_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:30:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:119:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:41:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:138:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:178:in `block in action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:148:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:93:in `block in recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:68:in `optimized_each'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:92:in `recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:139:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:492:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/head.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/methodoverride.rb:24:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:32:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:12:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:31:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:46:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/sendfile.rb:107:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/logger.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/runtime.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/static.rb:30:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:168:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:77:in `method_missing'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/log_tailer.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/content_length.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/handler/webrick.rb:52:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+Rendered store/index.html.erb within layouts/application (0.7ms)
+Completed   in 35ms
+
+ActionView::Template::Error (/home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'):
+    17:     <%= button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) %>
+    18:   </div>
+    19: </div>
+    20: <% end  %>
+  
+
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.8ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.4ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (8.9ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:07:40 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (0.8ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+ERROR: compiling _app_views_store_index_html_erb___2239424401792329768_20799780__405670652931685956 RAISED /home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+Function body:           def _app_views_store_index_html_erb___2239424401792329768_20799780__405670652931685956(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "store/index";_old_output_buffer = @output_buffer;;@output_buffer = ActionView::OutputBuffer.new; if notice 
+@output_buffer.safe_concat('<p id="notice">
+  ');@output_buffer.append= ( notice );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</p>
+'); end 
+@output_buffer.safe_concat('
+<h1>Rails Video Depot</h1>
+
+');@output_buffer.append_if_string=  @movies.each do |movie| 
+@output_buffer.safe_concat('<div class="entry">
+  ');@output_buffer.append= ( link_to "felx", cart_items_path(:movie_id => movie.id );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  <h3>');@output_buffer.append= ( movie.title );@output_buffer.safe_concat('</h3>
+  <div>
+    ');@output_buffer.append= ( sanitize( movie.overview ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+  <div class="price_line">
+    ');@output_buffer.append= ( button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+</div>
+'); end  
+@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `module_eval'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `compile'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:134:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:54:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:127:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:59:in `block in _render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:56:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:26:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:93:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:17:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block (2 levels) in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `block in ms'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:150:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:18:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:435:in `_run__4169810168761154003__process_action__3119995550180263816__callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:409:in `_run_process_action_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:93:in `run_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:30:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:119:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:41:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:138:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:178:in `block in action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:148:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:93:in `block in recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:68:in `optimized_each'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:92:in `recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:139:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:492:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/head.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/methodoverride.rb:24:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:32:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:12:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:31:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:46:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/sendfile.rb:107:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/logger.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/runtime.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/static.rb:30:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:168:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:77:in `method_missing'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/log_tailer.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/content_length.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/handler/webrick.rb:52:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+Rendered store/index.html.erb within layouts/application (0.7ms)
+Completed   in 11ms
+
+ActionView::Template::Error (/home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'):
+    17:     <%= button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) %>
+    18:   </div>
+    19: </div>
+    20: <% end  %>
+  
+
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.8ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.1ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (8.5ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:07:41 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (0.9ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+ERROR: compiling _app_views_store_index_html_erb___2239424401792329768_23019960__405670652931685956 RAISED /home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+Function body:           def _app_views_store_index_html_erb___2239424401792329768_23019960__405670652931685956(local_assigns)
+            _old_virtual_path, @_virtual_path = @_virtual_path, "store/index";_old_output_buffer = @output_buffer;;@output_buffer = ActionView::OutputBuffer.new; if notice 
+@output_buffer.safe_concat('<p id="notice">
+  ');@output_buffer.append= ( notice );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('</p>
+'); end 
+@output_buffer.safe_concat('
+<h1>Rails Video Depot</h1>
+
+');@output_buffer.append_if_string=  @movies.each do |movie| 
+@output_buffer.safe_concat('<div class="entry">
+  ');@output_buffer.append= ( link_to "felx", cart_items_path(:movie_id => movie.id );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  <h3>');@output_buffer.append= ( movie.title );@output_buffer.safe_concat('</h3>
+  <div>
+    ');@output_buffer.append= ( sanitize( movie.overview ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+  <div class="price_line">
+    ');@output_buffer.append= ( button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) );@output_buffer.safe_concat('
+');@output_buffer.safe_concat('  </div>
+</div>
+'); end  
+@output_buffer.to_s
+          ensure
+            @_virtual_path, @output_buffer = _old_virtual_path, _old_output_buffer
+          end
+Backtrace: /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `module_eval'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:255:in `compile'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:134:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:54:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/template.rb:127:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:59:in `block in _render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:56:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_view/render/rendering.rb:26:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:115:in `_render_template'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:109:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/renderers.rb:47:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/compatibility.rb:55:in `render_to_body'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:102:in `render_to_string'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:93:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:17:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block (2 levels) in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `block in ms'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/core_ext/benchmark.rb:5:in `ms'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:40:in `block in render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:78:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/railties/controller_runtime.rb:15:in `cleanup_view_runtime'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:39:in `render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:10:in `default_render'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/implicit_render.rb:5:in `send_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:150:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rendering.rb:11:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:18:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:435:in `_run__4169810168761154003__process_action__3119995550180263816__callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:409:in `_run_process_action_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:93:in `run_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/callbacks.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:30:in `block in process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `block in instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications/instrumenter.rb:21:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/notifications.rb:52:in `instrument'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/instrumentation.rb:29:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rescue.rb:17:in `process_action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/base.rb:119:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/abstract_controller/rendering.rb:41:in `process'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:138:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal/rack_delegation.rb:14:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_controller/metal.rb:178:in `block in action'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:62:in `dispatch'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:27:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:148:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:93:in `block in recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:68:in `optimized_each'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/code_generation.rb:92:in `recognize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-mount-0.6.13/lib/rack/mount/route_set.rb:139:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/routing/route_set.rb:492:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/head.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/methodoverride.rb:24:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/flash.rb:182:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/cookies.rb:302:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:32:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:12:in `cache'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/query_cache.rb:31:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activerecord-3.0.5.rc1/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:46:in `block in call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/callbacks.rb:415:in `_run_call_callbacks'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/sendfile.rb:107:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/logger.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/runtime.rb:17:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/activesupport-3.0.5.rc1/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/lock.rb:11:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/static.rb:30:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:168:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/application.rb:77:in `method_missing'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/railties-3.0.5.rc1/lib/rails/rack/log_tailer.rb:14:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/content_length.rb:13:in `call'
+/home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/rack-1.2.1/lib/rack/handler/webrick.rb:52:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/home/felixt/.rvm/rubies/ruby-1.9.2-p180/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+Rendered store/index.html.erb within layouts/application (0.7ms)
+Completed   in 12ms
+
+ActionView::Template::Error (/home/felixt/prj/video-depot/app/views/store/index.html.erb:20: syntax error, unexpected keyword_end, expecting ')'
+'); end  
+       ^
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/home/felixt/prj/video-depot/app/views/store/index.html.erb:24: syntax error, unexpected keyword_end, expecting ')'):
+    17:     <%= button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) %>
+    18:   </div>
+    19: </div>
+    20: <% end  %>
+  
+
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (1.0ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (5.2ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (8.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:07:51 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (0.8ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Rendered store/index.html.erb within layouts/application (34.3ms)
+Completed 200 OK in 45ms (Views: 36.7ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:08:13 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.0ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+Rendered store/index.html.erb within layouts/application (12.2ms)
+Completed 200 OK in 23ms (Views: 14.7ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/cart_items?movie_id=2" for 127.0.0.1 at 2011-04-28 22:08:17 +1000
+  Processing by CartItemsController#index as HTML
+  Parameters: {"movie_id"=>"2"}
+  [1m[36mCartItem Load (1.1ms)[0m  [1mSELECT "cart_items".* FROM "cart_items"[0m
+Rendered cart_items/index.html.erb within layouts/application (14.1ms)
+Completed 200 OK in 41ms (Views: 32.6ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:08:42 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.1ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+Rendered store/index.html.erb within layouts/application (12.5ms)
+Completed 200 OK in 23ms (Views: 14.9ms | ActiveRecord: 1.1ms)
+
+
+Started POST "/cart_items?movie_id=2" for 127.0.0.1 at 2011-04-28 22:08:44 +1000
+  Processing by CartItemsController#create as HTML
+  Parameters: {"authenticity_token"=>"ESXPHdPLeNVkyP9MXzq7rnqcsknq5Y6VugMAk7IRMeA=", "movie_id"=>"2"}
+  [1m[36mCart Load (0.1ms)[0m  [1mSELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1[0m
+  [1m[35mMovie Load (0.5ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mAREL (2.1ms)[0m  [1mINSERT INTO "cart_items" ("cart_id", "created_at", "updated_at", "movie_id") VALUES (1, '2011-04-28 12:08:44.204597', '2011-04-28 12:08:44.204597', 2)[0m
+  [1m[35mCart Load (0.1ms)[0m  SELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1
+Redirected to http://0.0.0.0:3000/carts/1
+Completed 302 Found in 117ms
+
+
+Started GET "/carts/1" for 127.0.0.1 at 2011-04-28 22:08:44 +1000
+  Processing by CartsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCart Load (0.1ms)[0m  [1mSELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1[0m
+  [1m[35mCartItem Load (0.2ms)[0m  SELECT "cart_items".* FROM "cart_items" WHERE ("cart_items".cart_id = 1)
+  [1m[36mMovie Load (0.7ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mMovie Load (0.7ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 3 ORDER BY title LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+Rendered carts/show.html.erb within layouts/application (73.2ms)
+Completed 200 OK in 84ms (Views: 74.0ms | ActiveRecord: 1.6ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:08:49 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.4ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+Rendered store/index.html.erb within layouts/application (37.7ms)
+Completed 200 OK in 50ms (Views: 40.3ms | ActiveRecord: 1.4ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:13:03 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (50.7ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Rendered store/index.html.erb within layouts/application (378.6ms)
+Completed 200 OK in 602ms (Views: 442.0ms | ActiveRecord: 50.7ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:13:06 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.1ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+Rendered store/index.html.erb within layouts/application (93.1ms)
+Completed 200 OK in 106ms (Views: 96.9ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:13:27 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (1.3ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Rendered store/index.html.erb within layouts/application (13.5ms)
+Completed 200 OK in 25ms (Views: 16.2ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:13:30 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.0ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+Rendered store/index.html.erb within layouts/application (12.3ms)
+Completed 200 OK in 23ms (Views: 14.8ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:14:00 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (1.3ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Rendered store/index.html.erb within layouts/application (13.9ms)
+Completed 200 OK in 52ms (Views: 16.5ms | ActiveRecord: 1.3ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:14:02 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.0ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+Rendered store/index.html.erb within layouts/application (36.7ms)
+Completed 200 OK in 47ms (Views: 39.2ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:15:39 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Rendered store/index.html.erb within layouts/application (39.6ms)
+Completed 200 OK in 53ms (Views: 44.9ms | ActiveRecord: 1.0ms)
+
+
+Started POST "/cart_items?movie_id=3" for 127.0.0.1 at 2011-04-28 22:18:14 +1000
+  Processing by CartItemsController#create as HTML
+  Parameters: {"authenticity_token"=>"ESXPHdPLeNVkyP9MXzq7rnqcsknq5Y6VugMAk7IRMeA=", "movie_id"=>"3"}
+  [1m[35mCart Load (0.1ms)[0m  SELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1
+  [1m[36mMovie Load (0.5ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 3 ORDER BY title LIMIT 1[0m
+  [1m[35mAREL (0.2ms)[0m  INSERT INTO "cart_items" ("cart_id", "created_at", "updated_at", "movie_id") VALUES (1, '2011-04-28 12:18:14.749413', '2011-04-28 12:18:14.749413', 3)
+  [1m[36mCart Load (0.1ms)[0m  [1mSELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1[0m
+Redirected to http://0.0.0.0:3000/carts/1
+Completed 302 Found in 116ms
+
+
+Started GET "/carts/1" for 127.0.0.1 at 2011-04-28 22:18:14 +1000
+  Processing by CartsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mCart Load (1.2ms)[0m  SELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1
+  [1m[36mCartItem Load (0.2ms)[0m  [1mSELECT "cart_items".* FROM "cart_items" WHERE ("cart_items".cart_id = 1)[0m
+  [1m[35mMovie Load (0.9ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+  [1m[35mMovie Load (0.7ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 3 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 3 ORDER BY title LIMIT 1[0m
+Rendered carts/show.html.erb within layouts/application (75.1ms)
+Completed 200 OK in 126ms (Views: 88.1ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/carts/1" for 127.0.0.1 at 2011-04-28 22:18:17 +1000
+  Processing by CartsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mCart Load (0.1ms)[0m  SELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1
+  [1m[36mCartItem Load (0.2ms)[0m  [1mSELECT "cart_items".* FROM "cart_items" WHERE ("cart_items".cart_id = 1)[0m
+  [1m[35mMovie Load (0.8ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+  [1m[35mMovie Load (0.8ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 3 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 3 ORDER BY title LIMIT 1[0m
+Rendered carts/show.html.erb within layouts/application (69.0ms)
+Completed 200 OK in 83ms (Views: 69.8ms | ActiveRecord: 2.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:18:23 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.2ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+Rendered store/index.html.erb within layouts/application (12.9ms)
+Completed 200 OK in 25ms (Views: 15.7ms | ActiveRecord: 1.2ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:19:12 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Rendered store/index.html.erb within layouts/application (12.5ms)
+Completed 200 OK in 48ms (Views: 15.0ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:19:15 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.0ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+Rendered store/index.html.erb within layouts/application (35.9ms)
+Completed 200 OK in 47ms (Views: 38.4ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:19:15 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (1.1ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Rendered store/index.html.erb within layouts/application (35.8ms)
+Completed 200 OK in 56ms (Views: 38.2ms | ActiveRecord: 1.1ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:19:15 +1000
+  Processing by StoreController#index as HTML
+  [1m[35mMovie Load (1.0ms)[0m  SELECT "movies".* FROM "movies" ORDER BY title
+Rendered store/index.html.erb within layouts/application (12.3ms)
+Completed 200 OK in 26ms (Views: 16.5ms | ActiveRecord: 1.0ms)
+
+
+Started GET "/" for 127.0.0.1 at 2011-04-28 22:19:16 +1000
+  Processing by StoreController#index as HTML
+  [1m[36mMovie Load (1.0ms)[0m  [1mSELECT "movies".* FROM "movies" ORDER BY title[0m
+Rendered store/index.html.erb within layouts/application (13.1ms)
+Completed 200 OK in 25ms (Views: 15.5ms | ActiveRecord: 1.0ms)
+  [1m[36mSQL (24.7ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m   SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+  [1m[36mSQL (0.1ms)[0m  [1mSELECT "schema_migrations"."version" FROM "schema_migrations"[0m
+Migrating to CreateMovies (20110420122623)
+Migrating to AddCodeToVideos (20110420123249)
+Migrating to AddImageToVideos (20110421122126)
+Migrating to CreateCarts (20110426121149)
+Migrating to CreateCartItems (20110426122051)
+Migrating to RenameColumnVideoToMovieInCartItem (20110426122718)
+Migrating to AddQuantityToCartItems (20110428122405)
+  [1m[35mSQL (0.0ms)[0m  select sqlite_version(*)
+  [1m[36mSQL (0.5ms)[0m  [1mALTER TABLE "cart_items" ADD "quantity" integer DEFAULT 1[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ('20110428122405')
+  [1m[36mSQL (0.2ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.1ms)[0m  SELECT "schema_migrations"."version" FROM "schema_migrations"
+  [1m[36mSQL (0.1ms)[0m  [1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [1m[35mSQL (0.0ms)[0m  PRAGMA index_list("cart_items")
+  [1m[36mSQL (0.0ms)[0m  [1mPRAGMA index_list("carts")[0m
+  [1m[35mSQL (0.0ms)[0m  PRAGMA index_list("movies")
+
+
+Started POST "/cart_items?movie_id=2" for 127.0.0.1 at 2011-04-28 23:34:05 +1000
+  Processing by CartItemsController#create as HTML
+  Parameters: {"authenticity_token"=>"ESXPHdPLeNVkyP9MXzq7rnqcsknq5Y6VugMAk7IRMeA=", "movie_id"=>"2"}
+  [1m[35mCart Load (0.2ms)[0m  SELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1
+  [1m[36mMovie Load (20.8ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+  [1m[35mCartItem Load (0.1ms)[0m  SELECT "cart_items".* FROM "cart_items" WHERE "cart_items"."movie_id" = 2 AND ("cart_items".cart_id = 1) LIMIT 1
+  [1m[36mAREL (0.4ms)[0m  [1mUPDATE "cart_items" SET "quantity" = 2, "updated_at" = '2011-04-28 13:34:08.041922' WHERE "cart_items"."id" = 4[0m
+  [1m[35mCart Load (0.1ms)[0m  SELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1
+Redirected to http://0.0.0.0:3000/carts/1
+Completed 302 Found in 1308ms
+
+
+Started GET "/carts/1" for 127.0.0.1 at 2011-04-28 23:34:08 +1000
+  Processing by CartsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[36mCart Load (0.1ms)[0m  [1mSELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1[0m
+  [1m[35mCartItem Load (0.3ms)[0m  SELECT "cart_items".* FROM "cart_items" WHERE ("cart_items".cart_id = 1)
+  [1m[36mMovie Load (0.9ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+Rendered carts/show.html.erb within layouts/application (133.3ms)
+Completed   in 147ms
+
+ActionView::Template::Error (undefined method `quantity' for "#<Movie:0x00000002b7b810>":Movie):
+    6: <ul>
+    7:   <% @cart.cart_items.each do |item| %>
+    8:   
+    9:   <li><%= item.movie.quantity %> &times; <%= item.movie.title %></li>
+    10:   
+    11:   <% end %>
+    12: </ul>
+  app/views/carts/show.html.erb:9:in `block in _app_views_carts_show_html_erb__3593889397190762796_20696880__405670652931685956'
+  app/views/carts/show.html.erb:7:in `_app_views_carts_show_html_erb__3593889397190762796_20696880__405670652931685956'
+  app/controllers/carts_controller.rb:18:in `show'
+
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_trace.erb (0.9ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/_request_and_response.erb (19.2ms)
+Rendered /home/felixt/.rvm/gems/ruby-1.9.2-p180/gems/actionpack-3.0.5.rc1/lib/action_dispatch/middleware/templates/rescues/template_error.erb within rescues/layout (24.0ms)
+
+
+Started GET "/carts/1" for 127.0.0.1 at 2011-04-28 23:34:22 +1000
+  Processing by CartsController#show as HTML
+  Parameters: {"id"=>"1"}
+  [1m[35mCart Load (0.1ms)[0m  SELECT "carts".* FROM "carts" WHERE "carts"."id" = 1 LIMIT 1
+  [1m[36mCartItem Load (0.2ms)[0m  [1mSELECT "cart_items".* FROM "cart_items" WHERE ("cart_items".cart_id = 1)[0m
+  [1m[35mMovie Load (0.7ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+  [1m[35mMovie Load (0.7ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 3 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1[0m
+  [1m[35mCACHE (0.0ms)[0m  SELECT "movies".* FROM "movies" WHERE "movies"."id" = 2 ORDER BY title LIMIT 1
+  [1m[36mCACHE (0.0ms)[0m  [1mSELECT "movies".* FROM "movies" WHERE "movies"."id" = 3 ORDER BY title LIMIT 1[0m
+Rendered carts/show.html.erb within layouts/application (92.8ms)
+Completed 200 OK in 103ms (Views: 93.6ms | ActiveRecord: 2.9ms)
