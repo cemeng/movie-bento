@@ -1,8 +1,9 @@
 class Movie < ActiveRecord::Base
   default_scope :order => 'title'
 
-  has_many :cart_items
-  has_many :movie_categories
+  has_many 	:cart_items
+  has_many 	:movie_categories
+  belongs_to:rating
   
   before_destroy :ensure_not_referenced_by_any_cart_item
 

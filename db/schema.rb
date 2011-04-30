@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110430052050) do
+ActiveRecord::Schema.define(:version => 20110430123332) do
 
   create_table "cart_items", :force => true do |t|
     t.integer  "cart_id"
@@ -40,7 +40,6 @@ ActiveRecord::Schema.define(:version => 20110430052050) do
 
   create_table "movies", :force => true do |t|
     t.string   "title"
-    t.integer  "rating"
     t.integer  "duration"
     t.string   "director"
     t.string   "actors"
@@ -50,6 +49,16 @@ ActiveRecord::Schema.define(:version => 20110430052050) do
     t.datetime "updated_at"
     t.string   "code"
     t.string   "image"
+    t.integer  "rating_id"
+  end
+
+  create_table "ratings", :force => true do |t|
+    t.string   "code"
+    t.string   "title"
+    t.string   "description"
+    t.string   "image"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

@@ -1,13 +1,10 @@
-<p id="notice"><%= notice %></p>
+<% if notice %>
+	<p id="notice"><%= notice %></p>
+<% end %>
 
 <p>
   <b>Title:</b>
   <%= @movie.title %>
-</p>
-
-<p>
-  <b>Rating:</b>
-  <%= @movie.rating %>
 </p>
 
 <p>
@@ -32,10 +29,14 @@
 
 <p>
 	<b>Categories:</b>
-	<!-- Does not work -->
 	<% @movie.movie_categories.each do |movie_category| %>
 		<%= movie_category.category.name %>
 	<% end %>
+</p>
+
+<p>
+	<b>Ratings</b>
+	<%= image_tag( @movie.rating.image, :size => '140x53' ) %>
 </p>
 
 <p>
