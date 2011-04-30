@@ -31,6 +31,14 @@
 </p>
 
 <p>
+	<b>Categories:</b>
+	<!-- Does not work -->
+	<% @movie.movie_categories.each do |movie_category| %>
+		<%= movie_category.category.name %>
+	<% end %>
+</p>
+
+<p>
   <b>Available:</b>
   <%= @movie.available %>
 </p>

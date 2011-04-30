@@ -9,21 +9,14 @@
 <% @movies.each do |movie| %>
 <div class="entry">
   <%= link_to image_tag( movie.image ), cart_items_path(:movie_id => movie.id ), :method => :post %>
-  <h3><%= movie.title %></h3>
+  <h3><%= link_to movie.title, "/movies/" + movie.id.to_s %></h3>
   <div>
-    <%= sanitize( movie.overview ) %>
+    <%= sanitize( truncate( movie.overview , :length => 50, :omission => '...' ) ) %>
+    <!-- This is not optimal -->
+    <%= link_to "read more", "/movies/" + movie.id.to_s %>
   </div>
   <div class="price_line">
     <%= button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) %>
   </div>
 </div>
 <% end  %>
-
-<% if @counter > 5 %>
-	<em>You have accessed this page <%= pluralize( @counter, 'time' ) %></em>
-<% end %>
-<%= session[:cart_id] = 1 %>
-<%= debug session[:cart_id] %>
-<%= debug session %>
-<%= debug Cart.find(11) %>
-<%= debug Cart.find(1) %>
