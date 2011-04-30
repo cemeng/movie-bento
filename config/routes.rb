@@ -1,4 +1,8 @@
 VideoDepot::Application.routes.draw do
+  resources :movie_categories
+
+  resources :categories
+
   resources :cart_items
 
   resources :carts

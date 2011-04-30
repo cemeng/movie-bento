@@ -8,7 +8,7 @@ class Cart < ActiveRecord::Base
 			current_item.quantity += 1
 		else
 			# what is build? does it build many to many relationship?
-			current_item.build(:movie_id => movie_id)
+			current_item = cart_items.build(:movie_id => movie_id)
 	  	end
 	  	
 	  	return current_item

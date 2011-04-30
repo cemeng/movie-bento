@@ -3,11 +3,21 @@
 <% end  %>
 <h2>Checkout Details</h2>
 
-<ul>
+<table>
+	
+	<tr>
+		<th>Qty</th>
+		<th>Items</th>
+	</tr>
   <% @cart.cart_items.each do |item| %>
   
-  <li><%= item.quantity %> &times; <%= item.movie.title %></li>
+  <tr>
+  	<td><%= item.quantity %></td>
+  	<td><%= item.movie.title %></td>
+  </tr>
   
   <% end %>
-</ul>
+  
+</table>
 
+<%= button_to 'Empty Cart', @cart, :method => :delete, :confirm => 'Are you sure?' %>
