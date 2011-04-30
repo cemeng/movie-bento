@@ -22,3 +22,8 @@
 <% if @counter > 5 %>
 	<em>You have accessed this page <%= pluralize( @counter, 'time' ) %></em>
 <% end %>
+<%= session[:cart_id] = 1 %>
+<%= debug session[:cart_id] %>
+<%= debug session %>
+<%= debug Cart.find(11) %>
+<%= debug Cart.find(1) %>
