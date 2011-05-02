@@ -12,11 +12,10 @@
   <h3><%= link_to movie.title, "/movies/" + movie.id.to_s %></h3>
   <div>
     <%= sanitize( truncate( movie.overview , :length => 50, :omission => '...' ) ) %>
-    <!-- This is not optimal -->
-    <%= link_to "read more", "/movies/" + movie.id.to_s %>
+    <%= link_to "read more", movie %>
   </div>
   <div class="price_line">
-    <%= button_to 'Add to cart', cart_items_path(:movie_id => movie.id ) %>
+    <%= button_to 'Add to cart', cart_items_path(:movie_id => movie.id ), :remote => true %>
   </div>
 </div>
 <% end  %>

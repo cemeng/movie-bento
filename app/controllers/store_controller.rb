@@ -1,7 +1,9 @@
 class StoreController < ApplicationController
 	def index
 		@movies = Movie.all
-	
+		@categories = get_categories
+		@cart = current_cart
+		
 		#bonus point
 		if session[:counter].nil?
 			session[:counter] = 0

@@ -1,7 +1,7 @@
 class CategoriesController < ApplicationController
   # GET /categories
   # GET /categories.xml
-  def index
+  def indexl
     @categories = Category.all
 
     respond_to do |format|

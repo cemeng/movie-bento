@@ -44,11 +44,12 @@ class CartItemsController < ApplicationController
     movie = Movie.find( params[:movie_id] )
     @cart_item = @cart.add_movie( movie.id )
 	
-	resetCounter
+		resetCounter
 	
     respond_to do |format|
       if @cart_item.save
-        format.html { redirect_to(@cart_item.cart) }
+        format.html { redirect_to( store_url ) }
+        format.js 	{ @current_item = @line_item }
         format.xml  { render :xml => @cart_item, :status => :created, :location => @cart_item }
       else
         format.html { render :action => "new" }
