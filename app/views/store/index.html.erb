@@ -4,14 +4,14 @@
 </p>
 <% end %>
 
-<h1>Rails Video Depot</h1>
+<h1>Rails Movie Depot</h1>
 
 <% @movies.each do |movie| %>
 <div class="entry">
   <%= link_to image_tag( movie.image ), cart_items_path(:movie_id => movie.id ), :method => :post %>
   <h3><%= link_to movie.title, "/movies/" + movie.id.to_s %></h3>
-  <div>
-    <%= sanitize( truncate( movie.overview , :length => 50, :omission => '...' ) ) %>
+  <div style="width:600px">
+    <%= sanitize( truncate( movie.overview , :length => 150, :omission => '...' ) ) %>
     <%= link_to "read more", movie %>
   </div>
   <div class="price_line">

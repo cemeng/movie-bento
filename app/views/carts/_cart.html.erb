@@ -1,11 +1,13 @@
-<div class="cart_title">Your Rental Basket</div>
+<% unless cart.cart_items.empty? %>
+	<div class="cart_title">Your Rental Basket</div>
 
-<table>
-	<tr>
-		<th>Qty</th><th>Title</th>
-	</tr>
-	<%= render( cart.cart_items ) %>
-  
-</table>
+	<table>
+		<tr>
+			<th>Qty</th><th>Title</th>
+		</tr>
+		<%= render( cart.cart_items ) %>
+		
+	</table>
 
-<%= button_to 'Empty Cart', cart, :method => :delete, :confirm => 'Are you sure?' %>
+	<%= button_to 'Empty Cart', cart, :method => :delete, :confirm => 'Are you sure?' %>
+<% end %>

@@ -1,9 +1,9 @@
-<% if cart_item == @current_item %>
+	<% if cart_item == @current_item %>
 	<tr id="current_item">
-<% else %> 
+	<% else %> 
 	<tr>
-<% end %>  	
+	<% end %>  	
 		<td><%= cart_item.quantity %></td>
-  	<td><%= cart_item.movie.title %></td>
-  </tr>
+		<td><%= cart_item.movie.title %></td>
+	</tr>
 

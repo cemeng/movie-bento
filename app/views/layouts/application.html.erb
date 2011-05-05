@@ -11,22 +11,27 @@
 <body id="store">
   <div id="banner">
     <%= image_tag( "logo.png") %>
-    <%= @page_title || "Video Depot" %>
+    <%= @page_title || "Movie Depot" %>
   </div>
 
   <div id="columns">
     <div id="side">
-      <ul>
-        <li><a href="">Home</a></li>
-        <li><a href="">Questions</a></li>
-        <li><a href="">News</a></li>
-        <li><a href="">Contact</a></li>
-      </ul>
-      
+    	<table>
+      <tr>
+        <td><a href="">Home</a></td>
+      </tr>
+      <tr>
+        <td><a href="">News</a></td>
+      </tr>
+      <tr>
+        <td><a href="">Contact</a></td>
+      </tr>
+      </table>
+      <hr />
       <div id="cart">
       	<%= render @cart %>
       </div>
-      
+      <h2 style="color:white">Category</h2>
       <div id="category">
       	<%= render @categories %>
       </div>

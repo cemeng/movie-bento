@@ -13,4 +13,8 @@ class Cart < ActiveRecord::Base
 	  	
 	  	current_item
 	end
+	
+	def total_items
+		cart_items.count()
+	end
 end
