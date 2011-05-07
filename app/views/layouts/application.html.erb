@@ -28,13 +28,21 @@
       </tr>
       </table>
       <hr />
-      <div id="cart">
-      	<%= render @cart %>
-      </div>
-      <h2 style="color:white">Category</h2>
-      <div id="category">
-      	<%= render @categories %>
-      </div>
+
+		  <% #need to work out on  how to get @cart and @category to persist everyhere %>
+
+      <% if @cart %>
+		    <%= hidden_div_if( @cart.cart_items.empty? ,:id => "cart") do %>
+		    	<%= render @cart %>
+		    <% end %>
+		  <% end %>
+		  
+      <% if @categories %>
+	      <h2 style="color:white">Category</h2>
+		    <div id="category">
+		    	<%= render @categories %>
+		    </div>
+      <% end %>
       
     </div>
 

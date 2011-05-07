@@ -12,7 +12,7 @@ Rating.create( :code => 'G', :title => 'General Exhibition',
 Rating.create( :code => 'PG', :title => 'Parental guidance recommended', 
 :description => 'Contains material which young children may find confusing or upsetting, and may require parental supervision. It is not recommended for those under 8 years of age.', :image => '/images/parental.png' )
 Rating.create( :code => 'M', :title => 'Recommended for mature audiences', :description => 'Contains material that requires a mature perspective but is not deemed to strong for younger viewers. It is not recommended for persons under 12 years of age.', :image => '/images/mature.png' )
-Rating.create( :code => 'MA15+', :title => 'Mature Accompanied', :description => 'The content is considered unsuitable for exhibition by persons under the age of 15. Persons under this age may only legally purchase or exhibit MA15+ rated content under the supervision of an adult guardian. This is a legally restricted category.', :image => '/images/MA15+.png' )
+Rating.create( :code => 'MA15+', :title => 'Mature Accompanied', :description => 'The content is considered unsuitable for exhibition by persons under the age of 15. Persons under this age may only legally purchase or exhibit MA15+ rated content under the supervision of an adult guardian. This is a legally restricted category.', :image => '/images/MA15.png' )
 
 
 

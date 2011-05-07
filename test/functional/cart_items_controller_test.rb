@@ -21,7 +21,18 @@ class CartItemsControllerTest < ActionController::TestCase
       post :create, :cart_item => @cart_item.attributes
     end
 
-    assert_redirected_to cart_path(assigns(:cart_item).cart)
+    assert_redirected_to store_path
+  end
+
+  test "should create cart_item via ajax" do
+    assert_difference('CartItem.count') do
+      xhr :post, :create, :movie_id => movies(:ruby).id
+    end
+
+		assert_response :success
+		assert_select_rjs :replace_html, 'cart' do
+			assert_select 'tr#current_item td', /Programming Ruby 1.9/		
+		end
   end
 
   test "should show cart_item" do

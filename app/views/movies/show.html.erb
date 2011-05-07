@@ -36,7 +36,9 @@
 
 <p>
 	<b>Ratings</b>
-	<%= image_tag( @movie.rating.image, :size => '140x53' ) %>
+	<% if ( @movie.rating.image ) %>
+		<%= image_tag( @movie.rating.image, :size => '140x53' ) %>
+	<% end %>
 </p>
 
 <p>
