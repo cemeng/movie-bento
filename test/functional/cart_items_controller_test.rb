@@ -26,12 +26,12 @@ class CartItemsControllerTest < ActionController::TestCase
 
   test "should create cart_item via ajax" do
     assert_difference('CartItem.count') do
-      xhr :post, :create, :movie_id => movies(:ruby).id
+      xhr :post, :create, :movie_id => movies(:blades).id
     end
 
 		assert_response :success
 		assert_select_rjs :replace_html, 'cart' do
-			assert_select 'tr#current_item td', /Programming Ruby 1.9/		
+			assert_select 'tr#current_item td', /14 Blades/		
 		end
   end
 

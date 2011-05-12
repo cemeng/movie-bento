@@ -8,6 +8,7 @@ one:
   actors: MyString
   overview: MyText
   available: false
+  image: /images/14-blades.jpg
 
 two:
   title: MyString
@@ -17,3 +18,14 @@ two:
   actors: MyString
   overview: MyText
   available: false
+  image: /images/14-blades.jpg
+  
+blades:
+  title: 14 Blades
+  rating: 5
+  duration: 140
+  director: Felix
+  actors: Donnie Yen
+  overview: test only
+  available: true
+  image: /images/14-blades.jpg

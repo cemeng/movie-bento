@@ -8,8 +8,10 @@ class Movie < ActiveRecord::Base
   before_destroy :ensure_not_referenced_by_any_cart_item
 
   validates :title, :overview, :image, :presence => true
-  validates :title, :uniqueness => true
-  validates :image, :format => {
+	validates_length_of :title, :minimum => 5
+  validates :title, 		:uniqueness 		=> true
+  validates :duration, 	:numericality 	=> {:greater_than_or_equal_to => 0.01}
+  validates :image, 		:format => {
     :with => %r{\.(gif|jpg|png)$}i,
     :message => 'must be a URL for GIF, JPG or PNG image'
   }

@@ -1,4 +1,6 @@
 VideoDepot::Application.routes.draw do
+  resources :orders
+
   resources :ratings
 
   resources :movie_categories
