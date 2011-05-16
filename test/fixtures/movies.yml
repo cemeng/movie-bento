@@ -1,7 +1,7 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  title: MyString
+  title: MovieOne
   rating: 1
   duration: 1
   director: MyString
@@ -11,7 +11,7 @@ one:
   image: /images/14-blades.jpg
 
 two:
-  title: MyString
+  title: MovieTwo
   rating: 1
   duration: 1
   director: MyString

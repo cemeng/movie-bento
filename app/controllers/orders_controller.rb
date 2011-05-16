@@ -24,6 +24,13 @@ class OrdersController < ApplicationController
   # GET /orders/new
   # GET /orders/new.xml
   def new
+  	@cart = current_cart
+  	
+  	if @cart.cart_items.empty?
+  		redirect_to store_url, :notice => 'Your cart is empty'
+  		return # this is important! otherwise render error
+  	end
+  	
     @order = Order.new
 
     respond_to do |format|
@@ -41,10 +48,20 @@ class OrdersController < ApplicationController
   # POST /orders.xml
   def create
     @order = Order.new(params[:order])
+		@order.add_cart_items_from_cart( current_cart )    
 
+		# how does Rails handle error? save might return error?
     respond_to do |format|
       if @order.save
-        format.html { redirect_to(@order, :notice => 'Order was successfully created.') }
+
+      	# We want to destroy the cart and persist it to order instead
+      	# Cart is transient - Order is permanent
+      	Cart.destroy( session[:cart_id ]) 
+      	
+      	# would be better if there is a manager that handles the session manager - session helper maybe?
+      	session[ :cart_id ] = nil 
+      
+        format.html { redirect_to( store_url, :notice => 'Thank you for your order') }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
       else
         format.html { render :action => "new" }

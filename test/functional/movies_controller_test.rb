@@ -6,7 +6,9 @@ class MoviesControllerTest < ActionController::TestCase
     @update = {
       :title => 'New Test',
       :overview => 'Test',
-      :image => '/images/14-blades.jpg' 
+      :image => '/images/14-blades.jpg',
+      :duration => 160
+      
     }
   end
 

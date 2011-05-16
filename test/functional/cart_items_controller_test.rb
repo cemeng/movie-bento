@@ -17,6 +17,7 @@ class CartItemsControllerTest < ActionController::TestCase
   end
 
   test "should create cart_item" do
+  	
     assert_difference('CartItem.count') do
       post :create, :cart_item => @cart_item.attributes
     end

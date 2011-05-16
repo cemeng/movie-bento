@@ -1,9 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  movie_id: 16
-  cart_id: 1
+  movie: one
+  order: one
 
 two:
-  movie_id: 16
-  cart_id: 1
+  movie: two
+  cart: one
+
