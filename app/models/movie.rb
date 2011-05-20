@@ -3,6 +3,7 @@ class Movie < ActiveRecord::Base
 
   has_many 	:cart_items
   has_many 	:movie_categories
+  has_many  :orders, :through => :cart_items
   belongs_to:rating
   
   before_destroy :ensure_not_referenced_by_any_cart_item

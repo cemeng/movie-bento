@@ -8,7 +8,8 @@
 		<%= render( cart.cart_items ) %>
 		
 	</table>
-
-	<%= button_to 'Checkout', new_order_path, :method => :get %>
+    <% unless @hide_checkout %>
+        <%= button_to 'Checkout', new_order_path, :method => :get %>
+    <% end %>
 	<%= button_to 'Empty Cart', cart, :method => :delete, :confirm => 'Are you sure?' %>
 <% end %>

@@ -1,4 +1,5 @@
 .bundle
+.idea/*
 nbproject
 db/*.sqlite3
 log/*.log

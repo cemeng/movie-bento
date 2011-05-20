@@ -2,7 +2,8 @@ class OrdersController < ApplicationController
   # GET /orders
   # GET /orders.xml
   def index
-    @orders = Order.all
+    #@orders = Order.all
+    @orders = Order.paginate :page => params[:page], :order => 'created_at desc', :per_page => 10
 
     respond_to do |format|
       format.html # index.html.erb
@@ -25,6 +26,8 @@ class OrdersController < ApplicationController
   # GET /orders/new.xml
   def new
   	@cart = current_cart
+
+    @hide_checkout = true
   	
   	if @cart.cart_items.empty?
   		redirect_to store_url, :notice => 'Your cart is empty'

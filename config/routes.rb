@@ -13,7 +13,9 @@ VideoDepot::Application.routes.draw do
 
   get "store/index"
 
-  resources :movies
+  resources :movies do
+    get :who_rent, :on => :member
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

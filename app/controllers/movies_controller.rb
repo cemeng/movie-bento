@@ -80,4 +80,15 @@ class MoviesController < ApplicationController
       format.xml  { head :ok }
     end
   end
+
+  def who_rent
+    @movie = Movie.find( params[:id] )
+    respond_to do |format|
+      format.atom
+      format.xml { render :xml => @movie }
+    end
+  end
+
+
+
 end
