@@ -30,19 +30,19 @@
       </table>
       <hr />
 
-		  <% #need to work out on  how to get @cart and @category to persist everyhere %>
+	  <% #need to work out on  how to get @cart and @category to persist everyhere %>
 
       <% if @cart %>
-		    <%= hidden_div_if( @cart.cart_items.empty? ,:id => "cart") do %>
-		    	<%= render @cart %>
-		    <% end %>
-		  <% end %>
+        <%= hidden_div_if( @cart.cart_items.empty? ,:id => "cart") do %>
+            <%= render @cart %>
+        <% end %>
+      <% end %>
 		  
       <% if @categories %>
-	      <h2 style="color:white">Category</h2>
-		    <div id="category">
-		    	<%= render @categories %>
-		    </div>
+	    <h2 style="color:white">Category</h2>
+        <div id="category">
+          <%= render @categories %>
+        </div>
       <% end %>
       
     </div>

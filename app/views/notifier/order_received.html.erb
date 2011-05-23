@@ -1,0 +1,11 @@
+Dear <%= @order.name %>
+
+Thank you for your recent rent order from the Rails Movie Depot.
+
+<table>
+    <tr>
+        <th>Qty</th><th>Title</th>
+    </tr>
+    <%= render @order.cart_items %>
+</table>
+

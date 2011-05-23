@@ -62,9 +62,12 @@ class OrdersController < ApplicationController
       	Cart.destroy( session[:cart_id ]) 
       	
       	# would be better if there is a manager that handles the session manager - session helper maybe?
-      	session[ :cart_id ] = nil 
+      	session[ :cart_id ] = nil
+
+        # Send Email
+        Notifier.order_received(@order).deliver
       
-        format.html { redirect_to( store_url, :notice => 'Thank you for your order') }
+        format.html { redirect_to( store_url, :notice => 'Thank you for your order. An email confirmation will be sent shortly.') }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
       else
         format.html { render :action => "new" }
