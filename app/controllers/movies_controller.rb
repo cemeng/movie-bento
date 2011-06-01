@@ -1,4 +1,7 @@
 class MoviesController < ApplicationController
+
+  skip_before_filter :authorize, :only => [:show,:index,:who_rent]
+
   # GET /movies
   # GET /movies.xml
   def index

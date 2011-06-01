@@ -1,4 +1,7 @@
 class CartItemsController < ApplicationController
+
+  skip_before_filter :authorize, :only => :create
+
   # GET /cart_items
   # GET /cart_items.xml
   def index
