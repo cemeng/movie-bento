@@ -18,6 +18,7 @@
     <td><%= user.name %></td>
     <td><%= user.created_at %></td>
     <td><%= user.updated_at %></td>
+    <!-- I want to check if the logged in user is in fact an admin -->
     <td><%= link_to 'Show', user %></td>
     <td><%= link_to 'Edit', edit_user_path(user) %></td>
     <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>

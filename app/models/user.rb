@@ -2,6 +2,8 @@ require 'digest/sha2'
 
 class User < ActiveRecord::Base
 
+  after_destroy :ensure_an_admin_remains
+
   validates :name, :presence => true, :uniqueness => true
   validates :password, :confirmation => true
 
@@ -40,6 +42,13 @@ class User < ActiveRecord::Base
       end
     end
 
+  end
+
+  def ensure_an_admin_remains
+    # this will cause the transaction to roll back if the exception is raised
+    unless ( User.find_by_admin( true ) )
+      raise "Cannot delete the last admin"
+    end
   end
 
   #############################################

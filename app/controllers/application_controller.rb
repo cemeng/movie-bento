@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
     rescue ActiveRecord::RecordNotFound
       cart = Cart.create
       session[:cart_id] = cart.id
-      return cart #me being explicit here - cart doang is enough
+      return cart #the return keyword is not needed - cart alone is enough
     end
 
   protected
@@ -23,4 +23,11 @@ class ApplicationController < ActionController::Base
         redirect_to login_url, :notice => "Please login", :alert => "Please login"
       end
     end
+
+    def admin_authorize
+      if User.where( :id => session[:user_id], :admin => true ).count < 1
+        redirect_to login_url, :notice => "Please login", :alert => "Please login"
+      end
+    end
+
 end
