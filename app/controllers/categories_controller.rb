@@ -13,10 +13,10 @@ class CategoriesController < ApplicationController
 
   def show
     @category = Category.find(params[:id])
+    @movies = @category.movies
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @category }
+      format.html { render 'movies/index' } 
     end
   end
 

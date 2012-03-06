@@ -1,6 +1,13 @@
 
 <div id="product_list">
-<h1>Listing movies</h1>
+  <h1>
+    <% if @category %>
+      <%= @category.name %>
+    <% else %>
+      All
+    <% end %>
+    Movies
+  </h1>
 
 <table>
 <% if @movies %>
