@@ -1,9 +1,8 @@
 class ApplicationController < ActionController::Base
-  before_filter :authorize
+  before_filter :authorize, :set_categories
   protect_from_forgery
 
-
-  def get_categories
+  def set_categories 
     #session[:service_type] = %w{ public commericial }
     @categories = Category.all
   end
