@@ -6,15 +6,20 @@ project from the book Agile Web Development with Rails (4th edition).
 == TODO
 
 === Short Term
-- Bug: category page should not be secured
+- Have more data
+- Enable Create Account
+- After Create Account - should redirect back to front page 
+- Redo the layout - maybe using Bootstrap
+- Category Page
+-- Display paginated
+- Category selection must stick on all pages in front end
 - Front page
--- Browse movie by category
 -- Movies list to be paginated 
 - Use Rspec (and maybe Cucumber)
-- Redo the layout - maybe using Bootstrap
 - Upgrade to latest Rails
 - Registration
 -- must be easily register
+- Remove login page dump information
 
 === Longer Term
 - Rating System
@@ -26,5 +31,5 @@ project from the book Agile Web Development with Rails (4th edition).
 - Member area
 -- invoice history
 - Use Service Layer - models deriving directly from ActiveRecord should be dumb
-
+- Use Devise for authentication
 

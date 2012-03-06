@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  #before_filter :check_user_login
+  skip_before_filter :authorize
   #before_filter :enforce_user_login, :except => [:index,:show]
 
   # GET /users
