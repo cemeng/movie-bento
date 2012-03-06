@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Video Depot</title>
-  <%= stylesheet_link_tag "scaffold" %>
-  <%= stylesheet_link_tag "order" %>
+  <title>Movie Bento</title>
+  <%= stylesheet_link_tag "bootstrap", :media => "all" %>
   <%= stylesheet_link_tag "styles", :media => "all" %>
 
   <%= javascript_include_tag :defaults %>
@@ -11,8 +10,7 @@
 </head>
 <body id="store">
   <div id="banner">
-    <%= image_tag( "logo.png") %>
-    <%= @page_title || "Movie Depot" %>
+    <%= @page_title || "Movie Bento" %>
   </div>
 
   <div id="columns">
@@ -35,24 +33,19 @@
 
       <% else %>
           <% #need to work out on  how to get @cart and @category to persist everyhere %>
-
           <% if @cart %>
             <%= hidden_div_if( @cart.cart_items.empty? ,:id => "cart") do %>
                 <%= render @cart %>
             <% end %>
           <% end %>
-
-          <% if @categories %>
-            <h2 style="color:white">Category</h2>
-            <div id="category">
-              <%= render @categories %>
-            </div>
-          <% end %>
-
       <% end %>
-
+      <% if @categories %>
+        <h2>Category</h2>
+        <div id="category">
+          <%= render @categories %>
+        </div>
+      <% end %>
     </div>
-
   </div>
 
   <div id="main">
