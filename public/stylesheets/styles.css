@@ -1,4 +1,6 @@
 /* Global styles */
+body{
+}
 
 #banner{
   background: #eee;
@@ -13,23 +15,28 @@
     float:left;
 }
 
-#colunns{
-    background: #141;
+#columns{
+}
+#main{
 }
 
-#main{
-  margin-left: 17em;
-  padding-top: 4ex;
-  padding-left: 2em;
-  background:white;
+#login-box{
+  font-size: 0.9em;
+  color: #fff;
+}
+
+#login-box input{
+  width: 100px;
+  font-size: 0.9em;
+}
+
+#login-box .login-button{
+  width: 50px;
 }
 
 #side{
-  float: left;
   padding-top: 1em;
-  padding-left: 1em;
   padding-bottom: 1em;
-  width: 16em;
 }
 
 #side a{
@@ -46,20 +53,20 @@
 
 
 #store h1 {
-        font:  150% sans-serif;
-        color: #226;
-        border-bottom: 3px dotted #77d;
+  font:  150% sans-serif;
+  color: #226;
+  border-bottom: 3px dotted #77d;
 }
 
 /* Styles for products/index */
 
 #product_list table {
-        border-collapse: collapse;
+  border-collapse: collapse;
 }
 
 #product_list table tr td {
-        padding: 5px;
-        vertical-align: top;
+  padding: 5px;
+  vertical-align: top;
 }
 
 #product_list .list_image {
@@ -72,17 +79,17 @@
 }
 
 #product_list .list_description dl {
-        margin: 0;
+  margin: 0;
 }
 
 #product_list .list_description dt {
-	color:        #244;
-	font-weight:  bold;
-	font-size:    larger;
+  color:        #244;
+  font-weight:  bold;
+  font-size:    larger;
 }
 
 #product_list .list_description dd {
-        margin: 0;
+  margin: 0;
 }
 
 #product_list .list_actions {

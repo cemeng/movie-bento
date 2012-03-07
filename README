@@ -6,13 +6,17 @@ project from the book Agile Web Development with Rails (4th edition).
 == TODO
 
 === Short Term
+CHECKOUT IS BROKEN TERRIBLY
+- Login box on the layout
+- Make Checkout work
+- When Register - should not be an admin by default
+ 
+- Member section
+- Bug - checkout redirect to login
 - Have more data
-- Enable Create Account
 - After Create Account - should redirect back to front page 
-- Redo the layout - maybe using Bootstrap
 - Category Page
 -- Display paginated
-- Category selection must stick on all pages in front end
 - Front page
 -- Movies list to be paginated 
 - Use Rspec (and maybe Cucumber)
