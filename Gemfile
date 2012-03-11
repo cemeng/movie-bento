@@ -17,8 +17,10 @@ gem 'will_paginate', '>= 3.0.pre'
 
 group :development, :test do
   gem 'pry'
+  gem "rspec-rails", "~> 2.6"
 end
 
 group :test do
   gem 'pry'
+  gem "rspec-rails", "~> 2.6"
 end
