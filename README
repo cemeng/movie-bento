@@ -1,15 +1,19 @@
-== Movie Depot - the online movie dispenser
+== Movie Bento
 
-This is a slightly different implementation of the
-project from the book Agile Web Development with Rails (4th edition).
+It's an online movie rental system - it's started off as a variation from
+the project from the book Agile Development with Rails (4th edition).    
+    
+Aim of the project is to test Rails features and other gems that I don't
+really use on my daywork.
 
 == TODO
 
 === Short Term
 CHECKOUT IS BROKEN TERRIBLY
-- Login box on the layout
 - Make Checkout work
 - When Register - should not be an admin by default
+- After check out finish - clear the cart
+- Side bar only for member - admin should be separate
  
 - Member section
 - Bug - checkout redirect to login
