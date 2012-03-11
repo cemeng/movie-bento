@@ -9,25 +9,27 @@ really use on my daywork.
 == TODO
 
 === Short Term
-CHECKOUT IS BROKEN TERRIBLY
-- Make Checkout work
-- When Register - should not be an admin by default
-- After check out finish - clear the cart
-- Side bar only for member - admin should be separate
- 
 - Member section
-- Bug - checkout redirect to login
+- Rent History 
+-- should be routed on /rent-history
+-- /rent-history should only show history of logged in member
+-- Bug: after login - adding to cart failing 
+- Make Checkout work
+- After check out finish - clear the cart
+
 - Have more data
 - After Create Account - should redirect back to front page 
 - Category Page
 -- Display paginated
 - Front page
 -- Movies list to be paginated 
-- Use Rspec (and maybe Cucumber)
-- Upgrade to latest Rails
+
 - Registration
 -- must be easily register
-- Remove login page dump information
+
+- Rent period
+- Use Rspec (and maybe Cucumber)
+- Upgrade to latest Rails
 
 === Longer Term
 - Rating System
