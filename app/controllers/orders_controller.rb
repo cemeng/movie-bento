@@ -14,6 +14,10 @@ class OrdersController < ApplicationController
     end
   end
 
+  def for_user
+    @orders = Order.find_by_user_id
+  end
+
   # GET /orders/1
   # GET /orders/1.xml
   def show
@@ -55,17 +59,18 @@ class OrdersController < ApplicationController
   def create
     @order = Order.new(params[:order])
 		@order.add_cart_items_from_cart( current_cart )    
+    # need to ensure that user is logged in
+    @order.user_id = session[:user_id]
 
-		# how does Rails handle error? save might return error?
     respond_to do |format|
       if @order.save
 
       	# We want to destroy the cart and persist it to order instead
       	# Cart is transient - Order is permanent
-      	Cart.destroy( session[:cart_id ]) 
+        Cart.destroy(session[:cart_id])
       	
       	# would be better if there is a manager that handles the session manager - session helper maybe?
-      	session[ :cart_id ] = nil
+        session[:cart_id] = nil
 
         # Send Email
         Notifier.order_received(@order).deliver

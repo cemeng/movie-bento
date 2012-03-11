@@ -33,6 +33,7 @@ VideoDepot::Application.routes.draw do
     get :who_rent, :on => :member
   end
 
+  match 'rent-history' => 'orders#index'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

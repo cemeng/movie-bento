@@ -5,7 +5,6 @@
     <%= link_to 'Profile Update' , "" %> <br />
     <%= button_to "Logout", logout_path, :method => :delete %>
   </p>
-<% else %>
   <% if @cart %>
     <%= hidden_div_if( @cart.cart_items.empty? ,:id => "cart") do %>
       <%= render @cart %>
