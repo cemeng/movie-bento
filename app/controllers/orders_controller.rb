@@ -2,15 +2,12 @@ class OrdersController < ApplicationController
 
   skip_before_filter :authorize, :only => [:name, :create]
 
-  # GET /orders
-  # GET /orders.xml
   def index
-    #@orders = Order.all
     @orders = Order.paginate :page => params[:page], :order => 'created_at desc', :per_page => 10
 
     respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @orders }
+      format.html
+      format.xml { render :xml => @orders }
     end
   end
 
@@ -18,22 +15,17 @@ class OrdersController < ApplicationController
     @orders = Order.find_by_user_id
   end
 
-  # GET /orders/1
-  # GET /orders/1.xml
   def show
     @order = Order.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @order }
+      format.html
+      format.xml { render :xml => @order }
     end
   end
 
-  # GET /orders/new
-  # GET /orders/new.xml
   def new
   	@cart = current_cart
-
     @hide_checkout = true
   	
   	if @cart.cart_items.empty?
@@ -44,18 +36,15 @@ class OrdersController < ApplicationController
     @order = Order.new
 
     respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @order }
+      format.html
+      format.xml { render :xml => @order }
     end
   end
 
-  # GET /orders/1/edit
   def edit
     @order = Order.find(params[:id])
   end
 
-  # POST /orders
-  # POST /orders.xml
   def create
     @order = Order.new(params[:order])
 		@order.add_cart_items_from_cart( current_cart )    
@@ -64,17 +53,13 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-
-      	# We want to destroy the cart and persist it to order instead
       	# Cart is transient - Order is permanent
         Cart.destroy(session[:cart_id])
       	
       	# would be better if there is a manager that handles the session manager - session helper maybe?
         session[:cart_id] = nil
 
-        # Send Email
         Notifier.order_received(@order).deliver
-      
         format.html { redirect_to( store_url, :notice => 'Thank you for your order. An email confirmation will be sent shortly.') }
         format.xml  { render :xml => @order, :status => :created, :location => @order }
       else
@@ -84,8 +69,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # PUT /orders/1
-  # PUT /orders/1.xml
   def update
     @order = Order.find(params[:id])
 
@@ -100,8 +83,6 @@ class OrdersController < ApplicationController
     end
   end
 
-  # DELETE /orders/1
-  # DELETE /orders/1.xml
   def destroy
     @order = Order.find(params[:id])
     @order.destroy
