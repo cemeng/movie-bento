@@ -2,36 +2,11 @@
 body{
 }
 
-#banner{
-  background: #eee;
-  padding: 10 0;
-  border-bottom: 2px solid;
-  font: small-caps 40px/40px "Times New roman", serif;
-  color: #333;
-  text-align:center;
-}
-
-#banner img{
-    float:left;
-}
-
 #columns{
+  margin-top: 50px;
 }
+
 #main{
-}
-
-#login-box{
-  font-size: 0.9em;
-  color: #fff;
-}
-
-#login-box input{
-  width: 100px;
-  font-size: 0.9em;
-}
-
-#login-box .login-button{
-  width: 50px;
 }
 
 #side{

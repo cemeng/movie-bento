@@ -23,20 +23,6 @@
             <% end %>
           </ul>
         </div>
-        <div id="login-box">
-          <% if !session[:user_id] %>
-            <form class="navbar-search pull-right" action="">
-              <fieldset role="login">
-                Username: <input type="text" name="name" />
-                Paswword: <input type="password" name="password" />
-                <input type="submit" value="Login" class="login-button" />
-              </fieldset>
-            </form> 
-          <% else %>
-            Welcome!
-          <% end %>
-        </div>
-        <div style="clear:both" />
       </div>
     </div>     
   </div>
@@ -44,7 +30,7 @@
   <div id="columns" class="container">
     <div class="row">
       <div id="side" class="span3">
-        <%= render "layouts/sidebar" %><!-- store/sidebar -->
+        <%= render "layouts/sidebar" %>
       </div>
 
       <div id="main" class="span9">
