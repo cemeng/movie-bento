@@ -1,7 +1,7 @@
 <% if session[:user_id] %>
   <p>
     Welcome, somebody! <br />
-    <%= link_to 'Rent History'   , orders_path %> <br />
+    <%= link_to 'Rent History'   , "rent-history" %> <br />
     <%= link_to 'Profile Update' , "" %> <br />
     <%= button_to "Logout", logout_path, :method => :delete %>
   </p>
