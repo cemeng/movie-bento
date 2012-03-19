@@ -3,16 +3,12 @@ class OrdersController < ApplicationController
   skip_before_filter :authorize, :only => [:name, :create]
 
   def index
-    @orders = Order.paginate :page => params[:page], :order => 'created_at desc', :per_page => 10
+    @orders = Order.for_user(session[:user_id]).paginate :page => params[:page], :order => 'created_at desc', :per_page => 10
 
     respond_to do |format|
       format.html
       format.xml { render :xml => @orders }
     end
-  end
-
-  def for_user
-    @orders = Order.find_by_user_id
   end
 
   def show
