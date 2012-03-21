@@ -9,6 +9,9 @@ really use on my daywork.
 == TODO
 
 === Short Term
+- Upgrade to Rails 3.2 break all the things
+-- Fix add to cart
+
 - Member section
 - Rent History 
 -- should be routed on /rent-history
