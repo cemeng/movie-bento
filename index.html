@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Movie-bento by cemeng</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/respond.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <!--[if lt IE 8]>
+    <link rel="stylesheet" href="stylesheets/ie.css">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+      <div id="header">
+        <nav>
+          <li class="fork"><a href="https://github.com/cemeng/movie-bento">View On GitHub</a></li>
+          <li class="downloads"><a href="https://github.com/cemeng/movie-bento/zipball/master">ZIP</a></li>
+          <li class="downloads"><a href="https://github.com/cemeng/movie-bento/tarball/master">TAR</a></li>
+          <li class="title">DOWNLOADS</li>
+        </nav>
+      </div><!-- end header -->
+
+    <div class="wrapper">
+
+      <section>
+        <div id="title">
+          <h1>Movie-bento</h1>
+          <p>Online Movie Dispenser</p>
+          <hr>
+          <span class="credits left">Project maintained by <a href="https://github.com/cemeng">cemeng</a></span>
+          <span class="credits right">Hosted on GitHub Pages &mdash; Theme by <a href="http://twitter.com/#!/michigangraham">mattgraham</a></span>
+        </div>
+
+        <p>== Movie Bento</p>
+
+<p>It's an online movie rental system - it's started off as a variation from
+the project from the book Agile Development with Rails (4th edition).    </p>
+
+<p>Aim of the project is to test Rails features and other gems that I don't
+really use on my daywork.</p>
+
+<p>== TODO</p>
+
+<p>=== Short Term</p>
+
+<ul>
+<li><p>Upgrade to Rails 3.2 break all the things
+-- Fix add to cart</p></li>
+<li><p>Member section</p></li>
+<li><p>Rent History 
+-- should be routed on /rent-history
+-- /rent-history should only show history of logged in member
+-- Bug: after login - adding to cart failing </p></li>
+<li><p>Make Checkout work</p></li>
+<li><p>After check out finish - clear the cart</p></li>
+<li><p>Have more data</p></li>
+<li><p>After Create Account - should redirect back to front page </p></li>
+<li><p>Category Page
+-- Display paginated</p></li>
+<li><p>Front page
+-- Movies list to be paginated </p></li>
+<li><p>Registration
+-- must be easily register</p></li>
+<li><p>Rent period</p></li>
+<li><p>Use Rspec (and maybe Cucumber)</p></li>
+<li><p>Upgrade to latest Rails</p></li>
+</ul><p>=== Longer Term</p>
+
+<ul>
+<li>Rating System
+-- Hook to rotten tomatoes API?</li>
+<li>Front Page
+-- Display latest
+-- Display most popular</li>
+<li>Admin - maybe using ActiveAdmin</li>
+<li>Member area
+-- invoice history</li>
+<li>Use Service Layer - models deriving directly from ActiveRecord should be dumb</li>
+<li>Use Devise for authentication</li>
+</ul>
+      </section>
+
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><!--<![endif]-->
+    
+  </body>
+</html>
